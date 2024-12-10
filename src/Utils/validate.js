@@ -1,10 +1,10 @@
 const  mongoose  = require("mongoose");
-const { isEmpty } = require("validator");
+const { isEmpty ,isLength} = require("validator");
 
 function createSpaceValidator(req) {
-  const { type } = req.body;
+  const { type, spaceName } = req.body;
 
-  const allowedFields = ["type", "capacity", "pricePerUnit"];
+  const allowedFields = ["type", "capacity", "pricePerUnit" , "spaceName"];
   const allowedTypes = ["hanger", "shelf"];
 
   const fieldList = Object.keys(req.body);
@@ -17,6 +17,10 @@ function createSpaceValidator(req) {
 
   if (!allowedTypes.includes(type)) {
     throw new Error("Invalid space type");
+  }
+
+  if(!isLength(spaceName ,{min:3 , max:16})){
+    throw new Error("space name must be 3 to 16 character");
   }
 }
 

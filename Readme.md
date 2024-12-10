@@ -72,7 +72,8 @@ http://localhost:3000
 #### Request Body
 | Field        | Type   | Required | Description                                   |
 |--------------|--------|----------|-----------------------------------------------|
-| `type`       | string | No       | Must be one of `hanger` or `shelf`.          |
+| `spaceName`       | string | yes      | Must be min and max of `3` or `16`character.          |
+| `type`       | string | yes      | Must be one of `hanger` or `shelf`.          |
 | `capacity`   | number | No       | The capacity of the space.                    |
 | `pricePerUnit` | number | No    | The price per unit for the space.            |
 

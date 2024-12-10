@@ -15,9 +15,12 @@
 const mongoose = require('mongoose');
 
 const spaceSchema = new mongoose.Schema({
-    allocatedUserName: {
+    spaceName: {
         type: String,
-        trim: true
+        trim: true,
+        required: true,
+        min:3,
+        max:16
     },
     type:{
         type:String,

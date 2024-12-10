@@ -20,9 +20,9 @@ app.use(cors({
 // creating new space with proper JSON format and error message
 app.post("/api/v1/spaces", async (req, res) => {
   try {
-    const { type, capacity, pricePerUnit } = req.body;
+    const { type, capacity, pricePerUnit , spaceName } = req.body;
 
-    if (!type || !capacity || !pricePerUnit) {
+    if (!type || !capacity || !pricePerUnit || !spaceName) {
       return res.status(400).json({
         error: "Bad Request",
         message:
