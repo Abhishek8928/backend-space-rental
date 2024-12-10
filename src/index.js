@@ -22,7 +22,9 @@ app.post("/api/v1/spaces", async (req, res) => {
   try {
     const { type, capacity, pricePerUnit , spaceName } = req.body;
 
-    if (!type || !capacity || !pricePerUnit || !spaceName) {
+    console.log(req.body)
+
+    if (!type  || !spaceName) {
       return res.status(400).json({
         error: "Bad Request",
         message:
@@ -81,6 +83,37 @@ app.delete("/api/v1/spaces/:spaceId", async (req, res) => {
   }
 });
 
+app.get("/api/v1/spaces/:spaceId", async (req, res) => {
+  try {
+    const { spaceId } = req.params;
+
+    const isValid = validateObjectId(spaceId);
+
+    if (!isValid) {
+      return res.status(400).json({
+        error: "Bad Request",
+        message: "Invalid space ID",
+      });
+    }
+    const space = await SpaceModel.findById(spaceId);
+
+    if (!space) {
+      return res.status(404).json({
+        error: "Not Found",
+        message: "Space not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Space deleted successfully",
+      data:space
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // update a space
 app.put("/api/v1/spaces/:spaceId", async (req, res) => {
   try {
@@ -120,8 +153,15 @@ app.put("/api/v1/spaces/:spaceId", async (req, res) => {
 app.get("/api/v1/spaces", async (req, res) => {
   try {
     const { selectedCategory } = req.query;
+    if(!selectedCategory){
+      return res.status(400).json(
+        {
+          message:"invalid category provided"
+        },
+      )
+    }
 
-    const filter = selectedCategory ? { type: selectedCategory } : {};
+    const filter = selectedCategory === "all" ? { } : {type: selectedCategory};
 
     const allSpaces = await SpaceModel.find(filter);
     res.status(200).json({

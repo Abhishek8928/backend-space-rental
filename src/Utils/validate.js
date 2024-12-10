@@ -4,7 +4,7 @@ const { isEmpty ,isLength} = require("validator");
 function createSpaceValidator(req) {
   const { type, spaceName } = req.body;
 
-  const allowedFields = ["type", "capacity", "pricePerUnit" , "spaceName"];
+  const allowedFields = ["type", "capacity", "pricePerUnit" , "spaceName" , "occupied"];
   const allowedTypes = ["hanger", "shelf"];
 
   const fieldList = Object.keys(req.body);

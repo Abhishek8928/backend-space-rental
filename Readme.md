@@ -98,7 +98,7 @@ http://localhost:3000
 #### Query Parameters
 | Parameter         | Type   | Required | Description                          |
 |-------------------|--------|----------|--------------------------------------|
-| `selectedCategory`| string | No       | Optional filter to get spaces of a specific type. |
+| `selectedCategory`| string | Yes      | Required filter to get spaces of a specific type. Default is `all`. |
 
 #### Possible Errors
 | Error Code | Error Message                | Description                                      |
@@ -111,6 +111,30 @@ http://localhost:3000
   {
     "message": "Spaces retrieved successfully",
     "data": [ /* array of space objects */ ]
+  }
+  ```
+
+### 5. Get a Space by ID
+- **GET** `/api/v1/spaces/:spaceId`
+
+#### Path Parameters
+| Parameter  | Type   | Required | Description                          |
+|------------|--------|----------|--------------------------------------|
+| `spaceId`  | string | Yes      | The ID of the space to retrieve.    |
+
+#### Possible Errors
+| Error Code | Error Message                | Description                                      |
+|------------|------------------------------|--------------------------------------------------|
+| 400        | Bad Request                  | The `spaceId` is not a valid ObjectId.          |
+| 404        | Not Found                    | The space with the given ID does not exist.     |
+| 500        | Internal Server Error        | An unexpected error occurred on the server.     |
+
+#### Response
+- **Success**: `200 OK`
+  ```json
+  {
+    "message": "Space retrieved successfully",
+    "data": { /* space object */ }
   }
   ```
 
